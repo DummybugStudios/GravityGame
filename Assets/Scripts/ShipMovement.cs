@@ -31,7 +31,7 @@ public class ShipMovement : MonoBehaviour
 
             float distance = distanceVector.magnitude;
             Vector3 direction = distanceVector.normalized; 
-            force += Mathf.Pow(obj.transform.localScale.x,3) * direction * gravityConstant * 1 / (distance * distance);
+            force += Mathf.Pow(obj.transform.localScale.x,2) * direction * gravityConstant * 1 / (distance * distance);
 
             
         }
