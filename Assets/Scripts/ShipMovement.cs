@@ -18,6 +18,10 @@ public class ShipMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    void FixedUpdate()
+    {
         Vector3 force = Vector3.zero;
 
         for(int i = 0; i < gravity.transform.childCount; i++)
@@ -27,7 +31,7 @@ public class ShipMovement : MonoBehaviour
 
             float distance = distanceVector.magnitude;
             Vector3 direction = distanceVector.normalized; 
-            force += direction * gravityConstant * 1 / (distance * distance);
+            force += obj.transform.localScale.x * direction * gravityConstant * 1 / (distance * distance);
 
             
         }
@@ -48,5 +52,10 @@ public class ShipMovement : MonoBehaviour
             // TODO : update the scene name here 
             SceneManager.LoadScene("SampleScene"); 
         }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        OnTriggerEnter(other);
     }
 }
