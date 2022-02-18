@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ShipMovement : MonoBehaviour
 {
@@ -33,6 +34,19 @@ public class ShipMovement : MonoBehaviour
         rb.AddForce(force);
         // Debug.Log("velx = "+rb.velocity.x + " vely = "+rb.velocity.z +" theta = "+theta);
         transform.rotation = Quaternion.LookRotation(rb.velocity);
+    }
 
+    void OnTriggerEnter(Collider other) {
+        if (other.CompareTag("Finish"))
+        { 
+            Debug.Log("You win");
+        }
+
+        else if (other.CompareTag("Obstacle"))
+        {
+            Debug.Log("You Lose"); 
+            // TODO : update the scene name here 
+            SceneManager.LoadScene("SampleScene"); 
+        }
     }
 }

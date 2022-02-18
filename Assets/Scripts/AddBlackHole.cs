@@ -7,6 +7,8 @@ public class AddBlackHole : MonoBehaviour
     // Start is called before the first frame update
     public GameObject blackHoles;
     public GameObject blackHolePrefab;
+
+    public int lives = 3;
     void Start()
     {
         
@@ -20,6 +22,9 @@ public class AddBlackHole : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (lives < 1)
+            return;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         Physics.Raycast(ray, out hit);
@@ -27,7 +32,7 @@ public class AddBlackHole : MonoBehaviour
         Vector3 point = new Vector3(hit.point.x,0,hit.point.z);
         GameObject x = Instantiate(blackHolePrefab, point, Quaternion.identity);
         x.transform.parent = blackHoles.transform;
-        
+        lives--; 
     }
 
     void OnMouseUp()
