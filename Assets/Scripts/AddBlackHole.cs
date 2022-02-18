@@ -41,8 +41,10 @@ public class AddBlackHole : MonoBehaviour
 
     void OnMouseDrag()
     {
+        if (lives < 1)
+            return;
         Vector3 point = FindClickLocation();
-        float scaleFactor = 1.0f + (point - startPoint).magnitude;
+        float scaleFactor = 1.0f + (point - startPoint).magnitude * 0.5f;
         scaleFactor = Mathf.Clamp(scaleFactor, 1.0f, 4.0f);
         // TODO: object won't be a sphere forever probably. Don't scale in all direction perhaps
         tempObstacle.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
