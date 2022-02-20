@@ -7,13 +7,18 @@ public class AddBlackHole : MonoBehaviour
     // Start is called before the first frame update
     public GameObject blackHoles;
     public GameObject blackHolePrefab;
+    public UIManager uIManager;
+    public GameObject canvas;
+
 
     public int lives = 3;
 
     private Vector3 startPoint;
     void Start()
     {
-        
+        uIManager = canvas.GetComponent<UIManager>();
+        uIManager.changeBHText(lives);
+        Debug.Log("poo");
     }
 
     // Update is called once per frame
@@ -36,6 +41,7 @@ public class AddBlackHole : MonoBehaviour
         if (lives < 1)
             return;
         startPoint = FindClickLocation();
+        Debug.Log("start point: " + startPoint);
         tempObstacle = Instantiate(blackHolePrefab, startPoint, Quaternion.identity);
     }
 
@@ -60,5 +66,6 @@ public class AddBlackHole : MonoBehaviour
         tempObstacle.transform.parent = blackHoles.transform;
         tempObstacle.tag = "Obstacle";
         lives--; 
+        uIManager.changeBHText(lives);
     }
 }
