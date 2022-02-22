@@ -19,7 +19,6 @@ public class ShipMovement : MonoBehaviour
         this.fixedDeltaTime = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0,0,1);
-
     }
 
     // Update is called once per frame
@@ -34,7 +33,7 @@ public class ShipMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             Time.timeScale = 5.0f;
-            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+            Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale; 
         }
 
     }
