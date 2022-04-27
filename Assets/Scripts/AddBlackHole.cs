@@ -18,13 +18,6 @@ public class AddBlackHole : MonoBehaviour
     {
         uIManager = canvas.GetComponent<UIManager>();
         uIManager.changeBHText(lives);
-        Debug.Log("poo");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     Vector3 FindClickLocation(){

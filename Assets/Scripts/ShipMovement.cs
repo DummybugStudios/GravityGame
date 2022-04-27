@@ -28,7 +28,6 @@ public class ShipMovement : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
-    
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -85,5 +84,13 @@ public class ShipMovement : MonoBehaviour
     void OnTriggerStay(Collider other)
     {
         OnTriggerEnter(other);
+    }
+
+    // Reset time scale and delta time when restarting.
+    void OnDestroy()
+    {
+        Debug.Log("Destroyed");
+        Time.timeScale = 1.0f;
+        Time.fixedDeltaTime = this.fixedDeltaTime;
     }
 }
