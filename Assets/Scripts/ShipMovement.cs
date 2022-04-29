@@ -11,7 +11,8 @@ using UnityEngine.SceneManagement;
 public class ShipMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    Rigidbody rb;
+    [System.NonSerialized]
+    public Rigidbody rb;
     public GameObject gravity;
     public float gravityConstant = 1.0f;
 
@@ -40,26 +41,32 @@ public class ShipMovement : MonoBehaviour
             Time.timeScale = 5.0f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale; 
         }
+        
 
     }
 
-    // This
-    void FixedUpdate()
+    public Vector3 GetForceAtPointFromBlackhole(Vector3 position, Transform blackhole)
     {
-        Vector3 force = Vector3.zero;
+        Vector3 distanceVector = blackhole.position - position;
+        float distance = distanceVector.magnitude;
+        Vector3 direction = distanceVector.normalized; 
+        return Mathf.Pow(blackhole.localScale.x,2) * direction * gravityConstant * 1 / (distance * distance);
+    }
 
+    // Get Force from blackholes at any point on the map
+    public Vector3 GetForceAtPoint(Vector3 position){
+        Vector3 force = Vector3.zero;
         for(int i = 0; i < gravity.transform.childCount; i++)
         {
             Transform obj = gravity.transform.GetChild(i);
-            Vector3 distanceVector = obj.position - transform.position;
-
-            float distance = distanceVector.magnitude;
-            Vector3 direction = distanceVector.normalized; 
-            force += Mathf.Pow(obj.transform.localScale.x,2) * direction * gravityConstant * 1 / (distance * distance);
-
-            
+            force += GetForceAtPointFromBlackhole(position, obj);
         }
-        rb.AddForce(force);
+        return force;
+    }
+    // This
+    void FixedUpdate()
+    {
+        rb.AddForce(GetForceAtPoint(transform.position));
         transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
