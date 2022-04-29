@@ -36,17 +36,22 @@ public class AddBlackHole : MonoBehaviour
         Vector3 position = mShipMovement.transform.position;
         Vector3 velocity = mShipMovement.rb.velocity;
         float DT = fixedDeltaTime * 20;
-        
+        bool stopDrawing =false;
         for (int i = 0; i < aimLine.positionCount; i++)
         {
             aimLine.SetPosition(i, position);
-            position += DT * velocity;
+            if (stopDrawing) continue; 
 
-            // Get total black hole influence at the new position
-            Vector3 force = mShipMovement.GetForceAtPoint(position);
-            // Get influence of the extra black hole being added.
-            force += mShipMovement.GetForceAtPointFromBlackhole(position, tempObstacle.transform);
+            Vector3 newPosition = position + DT * velocity;
+            Vector3 force = mShipMovement.GetForceAtPointFromBlackhole(position, tempObstacle.transform);
+            force += mShipMovement.GetForceAtPoint(position);
+            if (float.IsInfinity(force.magnitude))
+            {
+                stopDrawing = true;
+                continue;
+            }
             velocity += force * DT / mShipMovement.rb.mass;
+            position = newPosition;
         }
     }
     Vector3 FindClickLocation(){

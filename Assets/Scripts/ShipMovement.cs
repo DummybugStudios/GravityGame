@@ -49,6 +49,11 @@ public class ShipMovement : MonoBehaviour
     {
         Vector3 distanceVector = blackhole.position - position;
         float distance = distanceVector.magnitude;
+        if (distance < blackhole.GetComponent<SphereCollider>().radius)
+        {
+            return Vector3.positiveInfinity;
+        }
+
         Vector3 direction = distanceVector.normalized; 
         return Mathf.Pow(blackhole.localScale.x,2) * direction * gravityConstant * 1 / (distance * distance);
     }
@@ -66,7 +71,12 @@ public class ShipMovement : MonoBehaviour
     // This
     void FixedUpdate()
     {
-        rb.AddForce(GetForceAtPoint(transform.position));
+        Vector3 force = GetForceAtPoint(transform.position);
+        if (float.IsInfinity(force.magnitude))
+        {
+            force = Vector3.zero;
+        }
+        rb.AddForce(force);
         transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
