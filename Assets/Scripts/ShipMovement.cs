@@ -1,3 +1,8 @@
+/*
+*   This script is responsible for a lot of game mechanics
+*   It changes time scale, checks for win / lose conditions
+*   And moves the spaceship according to the blackholes
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +26,7 @@ public class ShipMovement : MonoBehaviour
         rb.velocity = new Vector3(0,0,1);
     }
 
-    // Update is called once per frame
+    // changes timescale when space is pressed
     void Update()
     {
         if (Input.GetKeyUp(KeyCode.Space))
@@ -37,6 +42,7 @@ public class ShipMovement : MonoBehaviour
 
     }
 
+    // This
     void FixedUpdate()
     {
         Vector3 force = Vector3.zero;
@@ -53,10 +59,10 @@ public class ShipMovement : MonoBehaviour
             
         }
         rb.AddForce(force);
-        // Debug.Log("velx = "+rb.velocity.x + " vely = "+rb.velocity.z +" theta = "+theta);
         transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
+    // This function checks for for Win / Lose conditions
     IEnumerator OnTriggerEnter(Collider other) {
         if (other.CompareTag("Finish"))
         { 
@@ -64,7 +70,14 @@ public class ShipMovement : MonoBehaviour
             finishAnimation.GetComponent<ParticleSystem>().Play();
             other.GetComponent<MeshRenderer>().enabled = false;
 
-            Debug.Log("You win");
+            // Change to the next scene
+            string currentLevelName = SceneManager.GetActiveScene().name;
+            string currentLevelNum = currentLevelName.Substring(currentLevelName.Length-1, 1);
+            int number = int.Parse("1");
+            Debug.Log("name "+ number.ToString());
+            string newLevelName = string.Format("Level {0}", number+1);
+            yield return new WaitForSeconds(0.7f);
+            SceneManager.LoadScene(newLevelName);
         }
 
         else if (other.CompareTag("Obstacle"))
@@ -76,11 +89,11 @@ public class ShipMovement : MonoBehaviour
             yield return new WaitForSeconds(0.7f);
 
             Debug.Log("You Lose"); 
-            // TODO : update the scene name here 
-            SceneManager.LoadScene("SampleScene"); 
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }
     }
 
+    // Also detect collisions if inside the Object (?)
     void OnTriggerStay(Collider other)
     {
         OnTriggerEnter(other);
