@@ -11,19 +11,20 @@ using UnityEngine.SceneManagement;
 public class ShipMovement : MonoBehaviour
 {
     // Start is called before the first frame update
-    private Rigidbody rb;
+    Rigidbody rb;
     public GameObject gravity;
     public float gravityConstant = 1.0f;
 
     public GameObject explosion1;
-    public GameObject finishAnimation;
-
-    public float fixedDeltaTime; 
+    float fixedDeltaTime; 
+    int totalPlanets;
+    int planetsVisited = 0;
     void Start()
     {
         this.fixedDeltaTime = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0,0,1);
+        totalPlanets = GameObject.FindGameObjectsWithTag("Finish").Length;
     }
 
     // changes timescale when space is pressed
@@ -66,29 +67,36 @@ public class ShipMovement : MonoBehaviour
     IEnumerator OnTriggerEnter(Collider other) {
         if (other.CompareTag("Finish"))
         { 
-            finishAnimation.SetActive(true);
-            finishAnimation.GetComponent<ParticleSystem>().Play();
+            ParticleSystem planetParticles = other.GetComponentInChildren<ParticleSystem>(true);
+            GameObject planet = planetParticles.gameObject;
+            planet.SetActive(true);
+            planetParticles.Play();
             other.GetComponent<MeshRenderer>().enabled = false;
 
-            // Change to the next scene
-            string currentLevelName = SceneManager.GetActiveScene().name;
-            string currentLevelNum = currentLevelName.Substring(currentLevelName.Length-1, 1);
-            int number = int.Parse("1");
-            Debug.Log("name "+ number.ToString());
-            string newLevelName = string.Format("Level {0}", number+1);
+            // let the animation play before continuing
             yield return new WaitForSeconds(0.7f);
-            SceneManager.LoadScene(newLevelName);
+            // Destroy Object so that future collisions do not happen.
+            // Destruction after wait so that animation can be played
+            Destroy(other.gameObject);
+            
+            // Don't do anyhthing if all planets aren't visited;
+            if (++planetsVisited == totalPlanets)
+            {
+                // Change to the next scene if all planets visited
+                string currentLevelName = SceneManager.GetActiveScene().name;
+                string currentLevelNum = currentLevelName.Substring(currentLevelName.Length-1, 1);
+                int number = int.Parse(currentLevelNum);
+                string newLevelName = string.Format("Level {0}", number+1);
+                SceneManager.LoadScene(newLevelName);
+            }
         }
 
         else if (other.CompareTag("Obstacle"))
         {
             Vector3 pos = other.transform.position;
             Instantiate(explosion1, pos, Quaternion.identity);
-            //other.GetComponent<Fracture>().FractureObject();
             rb.velocity = rb.velocity/4;
             yield return new WaitForSeconds(0.7f);
-
-            Debug.Log("You Lose"); 
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }
     }
@@ -102,7 +110,6 @@ public class ShipMovement : MonoBehaviour
     // Reset time scale and delta time when restarting.
     void OnDestroy()
     {
-        Debug.Log("Destroyed");
         Time.timeScale = 1.0f;
         Time.fixedDeltaTime = this.fixedDeltaTime;
     }

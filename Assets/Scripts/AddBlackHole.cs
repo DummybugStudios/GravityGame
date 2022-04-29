@@ -34,7 +34,6 @@ public class AddBlackHole : MonoBehaviour
         if (lives < 1)
             return;
         startPoint = FindClickLocation();
-        Debug.Log("start point: " + startPoint);
         tempObstacle = Instantiate(blackHolePrefab, startPoint, Quaternion.identity);
     }
 
