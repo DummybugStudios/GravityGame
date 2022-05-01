@@ -84,6 +84,10 @@ public class ShipMovement : MonoBehaviour
     IEnumerator OnTriggerEnter(Collider other) {
         if (other.CompareTag("Finish"))
         { 
+            // Add force to the ship
+            rb.AddForce(rb.velocity.normalized*1.2f, ForceMode.VelocityChange);
+
+            // Play particle effects
             ParticleSystem[] planetParticles = other.GetComponentsInChildren<ParticleSystem>(true);
             ParticleSystem halo = planetParticles[0];
             ParticleSystem hit = planetParticles[1]; 
