@@ -1273,6 +1273,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1038179049}
     m_Modifications:
+    - target: {fileID: 5742992001697549620, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4282203647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002276036411, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002276036413, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278245631
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002317313954, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4293651435
+      objectReference: {fileID: 0}
     - target: {fileID: 5742992002725695093, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: m_Name
       value: ColouredText

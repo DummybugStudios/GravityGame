@@ -121,11 +121,17 @@ public class ShipMovement : MonoBehaviour
 
         else if (other.CompareTag("Obstacle"))
         {
-            Vector3 pos = other.transform.position;
-            Instantiate(explosion1, pos, Quaternion.identity);
+            GameObject explosion = Instantiate(explosion1, transform.position, Quaternion.identity);
+            explosion.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
             rb.velocity = rb.velocity/4;
-            yield return new WaitForSeconds(0.7f);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+            yield return new WaitForSeconds(0.3f);
+            if (SceneManager.GetActiveScene().name == "Start")
+            {
+                SceneManager.LoadScene("Level 1"); 
+            }
+            else{
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
         }
     }
 
