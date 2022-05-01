@@ -17,7 +17,7 @@ public class AddBlackHole : MonoBehaviour
     private LineRenderer aimLine;
     private bool drawAimLine = false;
     private ShipMovement mShipMovement;
-    private GameObject tempObstacle;
+    private GameObject tempObstacle = null;
     private float fixedDeltaTime;
     void Start()
     {
@@ -31,6 +31,15 @@ public class AddBlackHole : MonoBehaviour
 
     void Update()
     {
+        // Right click cancel obstacle
+        if (Input.GetMouseButtonDown(1) && tempObstacle)
+        {
+            Destroy(tempObstacle);
+            drawAimLine = false;
+            aimLine.enabled = false;
+            tempObstacle = null;
+        }
+        // Draw aimline
         if (!drawAimLine) return;
 
         Vector3 position = mShipMovement.transform.position;
@@ -74,7 +83,7 @@ public class AddBlackHole : MonoBehaviour
 
     void OnMouseDrag()
     {
-        if (lives < 1)
+        if (lives < 1 || !tempObstacle)
             return;
         Vector3 point = FindClickLocation();
         float scaleFactor = 1.0f + (point - startPoint).magnitude * 0.5f;
@@ -85,8 +94,7 @@ public class AddBlackHole : MonoBehaviour
 
     void OnMouseUp()
     {
-        Debug.Log("mouse up");
-        if (lives < 1)
+        if (lives < 1 || !tempObstacle)
             return;
 
         Vector3 point = FindClickLocation();
@@ -97,5 +105,6 @@ public class AddBlackHole : MonoBehaviour
         uIManager.changeBHText(lives);
         drawAimLine = false;
         aimLine.enabled = false;
+        tempObstacle = null;
     }
 }
