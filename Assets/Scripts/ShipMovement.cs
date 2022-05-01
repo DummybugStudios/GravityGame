@@ -20,11 +20,13 @@ public class ShipMovement : MonoBehaviour
     float fixedDeltaTime; 
     int totalPlanets;
     int planetsVisited = 0;
+
+    public Vector2 startSpeed = new Vector2(0,1); 
     void Start()
     {
         this.fixedDeltaTime = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody>();
-        rb.velocity = new Vector3(0,0,1);
+        rb.velocity = new Vector3(startSpeed.x,0,startSpeed.y);
         totalPlanets = GameObject.FindGameObjectsWithTag("Finish").Length;
     }
 
