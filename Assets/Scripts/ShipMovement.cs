@@ -84,10 +84,15 @@ public class ShipMovement : MonoBehaviour
     IEnumerator OnTriggerEnter(Collider other) {
         if (other.CompareTag("Finish"))
         { 
-            ParticleSystem planetParticles = other.GetComponentInChildren<ParticleSystem>(true);
-            GameObject planet = planetParticles.gameObject;
+            ParticleSystem[] planetParticles = other.GetComponentsInChildren<ParticleSystem>(true);
+            ParticleSystem halo = planetParticles[0];
+            ParticleSystem hit = planetParticles[1]; 
+
+            halo.Pause();
+            halo.Clear();
+            GameObject planet = hit.gameObject;
             planet.SetActive(true);
-            planetParticles.Play();
+            hit.Play();
             other.GetComponent<MeshRenderer>().enabled = false;
 
             // let the animation play before continuing
