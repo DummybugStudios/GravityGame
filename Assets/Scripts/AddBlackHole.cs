@@ -57,7 +57,7 @@ public class AddBlackHole : MonoBehaviour
     Vector3 FindClickLocation(){
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        Physics.Raycast(ray, out hit);
+        Physics.Raycast(ray, out hit,Mathf.Infinity, LayerMask.GetMask("Background"));
         Vector3 point = new Vector3(hit.point.x,0,hit.point.z);
         return point;
     }
@@ -78,13 +78,14 @@ public class AddBlackHole : MonoBehaviour
             return;
         Vector3 point = FindClickLocation();
         float scaleFactor = 1.0f + (point - startPoint).magnitude * 0.5f;
-        scaleFactor = Mathf.Clamp(scaleFactor, 1.0f, 4.0f);
+        scaleFactor = Mathf.Clamp(scaleFactor, 1.0f, 5.0f);
         // TODO: object won't be a sphere forever probably. Don't scale in all direction perhaps
         tempObstacle.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
     }
 
     void OnMouseUp()
     {
+        Debug.Log("mouse up");
         if (lives < 1)
             return;
 
