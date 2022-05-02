@@ -1378,6 +1378,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5742992002725695095, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002725695095, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: yellowBlinkSpeed
       value: 0.25
       objectReference: {fileID: 0}
