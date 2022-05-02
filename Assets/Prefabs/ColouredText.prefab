@@ -49,10 +49,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac6ae607bc7ff6b4f87991f21b9fd4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  yellow_color: {r: 1, g: 0.84705883, b: 0, a: 1}
-  red_color: {r: 1, g: 0.23921569, b: 0.23921569, a: 1}
+  yellow_color: {r: 0.43137255, g: 0.59607846, b: 1, a: 0.58431375}
+  red_color: {r: 0.40392157, g: 0, b: 0.2509804, a: 1}
+  normal_color: {r: 1, g: 1, b: 1, a: 1}
   yellow_pos: {x: -3.6, y: 5, z: 0}
   red_pos: {x: 2.9, y: -7.5, z: 0}
+  fade: 0
+  fadeStartDelay: 2
+  fadeSpeed: 1
   yellowBlinkSpeed: 0.25
 --- !u!1 &6104587442364319489
 GameObject:

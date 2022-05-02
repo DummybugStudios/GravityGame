@@ -1561,6 +1561,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1751536332}
     m_Modifications:
+    - target: {fileID: 1999692457813854642, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_text
+      value: Press Space to go faster
+      objectReference: {fileID: 0}
+    - target: {fileID: 1999692457813854642, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: m_margin.z
+      value: -267.79407
+      objectReference: {fileID: 0}
     - target: {fileID: 5742992001697549618, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -1659,7 +1667,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5742992002725695094, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -345
       objectReference: {fileID: 0}
     - target: {fileID: 5742992002725695094, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1674,8 +1682,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5742992002725695095, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: fade
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002725695095, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742992002725695095, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
+      propertyPath: fadeStartDelay
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa12a2f36893c734a91ad16b4f20732d, type: 3}
