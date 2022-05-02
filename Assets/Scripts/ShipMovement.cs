@@ -88,9 +88,11 @@ public class ShipMovement : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(rb.velocity);
     }
 
-    // This function checks for for Win / Lose conditions
-    IEnumerator OnTriggerEnter(Collider other) {
-        if (other.CompareTag("Finish"))
+
+    bool waiting = false;
+    IEnumerator CheckCollision(Collider other){
+        if(waiting) yield break;
+         if (other.CompareTag("Finish"))
         { 
             // Add force to the ship
             rb.AddForce(rb.velocity.normalized*1.2f, ForceMode.VelocityChange);
@@ -108,7 +110,9 @@ public class ShipMovement : MonoBehaviour
             other.GetComponent<MeshRenderer>().enabled = false;
 
             // let the animation play before continuing
+            waiting = true;
             yield return new WaitForSeconds(0.7f);
+            waiting = false;
             // Destroy Object so that future collisions do not happen.
             // Destruction after wait so that animation can be played
             Destroy(other.gameObject);
@@ -130,7 +134,9 @@ public class ShipMovement : MonoBehaviour
             GameObject explosion = Instantiate(explosion1, transform.position, Quaternion.identity);
             explosion.transform.localScale = new Vector3(5.0f, 5.0f, 5.0f);
             rb.velocity = rb.velocity/4;
+            waiting = true;
             yield return new WaitForSeconds(0.3f);
+            waiting = false;
             if (SceneManager.GetActiveScene().name == "Start")
             {
                 SceneManager.LoadScene("Level 1"); 
@@ -140,11 +146,15 @@ public class ShipMovement : MonoBehaviour
             }
         }
     }
+    // This function checks for for Win / Lose conditions
+    IEnumerator OnTriggerEnter(Collider other) {
+        yield return CheckCollision(other); 
+    }
 
     // Also detect collisions if inside the Object (?)
-    void OnTriggerStay(Collider other)
+    IEnumerator OnTriggerStay(Collider other)
     {
-        OnTriggerEnter(other);
+        yield return CheckCollision(other); 
     }
 
     // Reset time scale and delta time when restarting.
