@@ -7,6 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class ShipMovement : MonoBehaviour
 {
@@ -21,13 +22,16 @@ public class ShipMovement : MonoBehaviour
     int totalPlanets;
     int planetsVisited = 0;
 
-    public Vector2 startSpeed = new Vector2(0,1); 
+    public Vector2 startSpeed = new Vector2(0,1);
+
+    GameObject postProcessing; 
     void Start()
     {
         this.fixedDeltaTime = Time.fixedDeltaTime;
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(startSpeed.x,0,startSpeed.y);
         totalPlanets = GameObject.FindGameObjectsWithTag("Finish").Length;
+        postProcessing = FindObjectOfType<PostProcessVolume>(true).gameObject;
     }
 
     // changes timescale when space is pressed
@@ -37,11 +41,13 @@ public class ShipMovement : MonoBehaviour
         {
             Time.timeScale = 1.0f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale;
+            postProcessing.SetActive(false);
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
             Time.timeScale = 5.0f;
             Time.fixedDeltaTime = this.fixedDeltaTime * Time.timeScale; 
+            postProcessing.SetActive(true);
         }
         
 
