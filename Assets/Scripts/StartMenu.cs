@@ -19,7 +19,8 @@ public class StartMenu : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            startDescent = true; 
+            startDescent = true;
+            FindObjectOfType<UITextScript>().gameObject.SetActive(false);
         }
     }
 
