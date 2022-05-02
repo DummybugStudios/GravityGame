@@ -29,7 +29,6 @@ public class UITextScript : MonoBehaviour
     {
         if (fade)
         {
-            Debug.Log("fade active"); 
             StartCoroutine(StartFade());
         }
         GameObject child = GetComponentInChildren<TextMeshProUGUI>().gameObject;
@@ -76,9 +75,7 @@ public class UITextScript : MonoBehaviour
 
     IEnumerator StartFade()
     {
-        Debug.Log("initiated fade");
         yield return new WaitForSecondsRealtime(fadeStartDelay); 
-        Debug.Log("starting fade");
         startedFading = true;
         fadeStartTime = Time.time;
     }
