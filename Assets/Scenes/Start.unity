@@ -1610,7 +1610,8 @@ PrefabInstance:
       propertyPath: blackHoles
       value: 
       objectReference: {fileID: 1117007430}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8475855829500572530, guid: 743b366e0b339d6409a601a568c78cd5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 743b366e0b339d6409a601a568c78cd5, type: 3}
 --- !u!4 &1918714221 stripped
 Transform:
