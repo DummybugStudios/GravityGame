@@ -137,7 +137,7 @@ public class ShipMovement : MonoBehaviour
             waiting = true;
             yield return new WaitForSeconds(0.3f);
             waiting = false;
-            if (SceneManager.GetActiveScene().name == "Start")
+            if (SceneManager.GetActiveScene().name == "Start" || SceneManager.GetActiveScene().name=="Level 7")
             {
                 SceneManager.LoadScene("Level 1"); 
             }

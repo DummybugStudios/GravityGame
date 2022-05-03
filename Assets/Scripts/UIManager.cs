@@ -7,18 +7,12 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    public TextMeshProUGUI blackholesText;
-    public Game game;
-    
+    public GameObject blackholes;
     public void onResetClick() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
     }
 
     public void changeBHText(int num) {
-        blackholesText.text = "Blackholes: " + num; 
-    }
-
-    public void onSwapClick() {
-        game.swapCameras();
+        blackholes.transform.GetChild(num).gameObject.SetActive(false);
     }
 }

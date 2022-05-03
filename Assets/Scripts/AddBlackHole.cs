@@ -22,7 +22,6 @@ public class AddBlackHole : MonoBehaviour
     void Start()
     {
         uIManager = canvas.GetComponent<UIManager>();
-        uIManager.changeBHText(lives);
         aimLine = GetComponentInChildren<LineRenderer>(true);
         mShipMovement = FindObjectOfType<ShipMovement>(true);
         fixedDeltaTime = Time.fixedDeltaTime;
